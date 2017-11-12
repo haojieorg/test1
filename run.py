@@ -3,6 +3,7 @@
 #导入Flask库
 from flask import Flask,render_template
 from flask_sqlalchemy import SQLAlchemy
+from admin import admin_blueprint
 
 #创建app 实例
 app = Flask(__name__)
@@ -25,9 +26,7 @@ def index():
 def login():
     return render_template('login.html')
 
-@app.route('/list/')
-def lst():
-    return render_template('base.html')
+app.register_blueprint(admin_blueprint,url_prefix='/admin')
 
 if __name__ == '__main__':
     app.run()
