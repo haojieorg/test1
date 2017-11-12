@@ -5,6 +5,8 @@ from flask.views import MethodView
 
 class EmployeeView(MethodView):
     def get(self):
-        return render_template('base.html')
+        from admin.models import Employee
+        emp = Employee.query.limit(20)
+        return render_template('emplist.html',emp=emp)
     def post(self):
         pass
