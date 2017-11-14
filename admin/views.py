@@ -34,6 +34,8 @@ class AddEmployeeView(MethodView):
             form.idcard.data,
             form.address.data,
         )
+        emp.departmentid=int(form.departmentid.data)
         db.session.add(emp)
-        db.commit()
+        db.session.commit()
         return redirect(url_for('admin.emplist'))
+
