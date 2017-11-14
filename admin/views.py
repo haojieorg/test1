@@ -8,7 +8,7 @@ class EmployeeView(MethodView):
 
     def get(self):
         from admin.models import Employee
-        emp = Employee.query.limit(20)
+        emp = Employee.query.order_by(db.desc(Employee.id)).limit(20)
         return render_template('emplist.html',emp=emp)
 
     def post(self):
