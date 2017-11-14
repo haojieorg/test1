@@ -19,7 +19,7 @@ class AddEmployeeView(MethodView):
     def get(self):
         from admin.models import Department
         form = EmployeeForm()
-        form.department.choices=[(d.id,d.name) for d in Department.query.all()]
+        form.departmentid.choices=[(d.id,d.name) for d in Department.query.all()]
         return render_template('addemp.html',form=form)
 
     def post(self):
