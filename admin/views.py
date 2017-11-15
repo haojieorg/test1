@@ -6,9 +6,9 @@ from admin.forms import EmployeeForm
 from admin.models import db
 class EmployeeView(MethodView):
 
-    def get(self):
+    def get(self,page=None):
         from admin.models import Employee
-        emp = Employee.query.order_by(db.desc(Employee.id)).limit(20)
+        emp = Employee.query.paginate(page,per_page=20)
         return render_template('emplist.html',emp=emp)
 
     def post(self):
