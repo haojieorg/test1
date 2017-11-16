@@ -30,9 +30,9 @@
                                 <td>{{ e.salary }}</td>
                                 <td>{{ e.address }}</td>
                                 <td>
-                                    <a href="{{ url_for('admin.addemp',id=e.id) }}">查看</a>
-                                    <a href="{{ url_for('admin.addemp',id=e.id) }}">编辑</a>
-                                    <a href="{{ url_for('admin.addemp',id=e.id) }}">删除</a>
+                                    <a href="{{ url_for('admin.edit',id=e.id) }}">查看</a>
+                                    <a href="{{ url_for('admin.edit',id=e.id) }}">编辑</a>
+                                    <a href="{{ url_for('admin.del',id=e.id) }}">删除</a>
                                 </td>
                             </tr>
                         {% endfor %}
