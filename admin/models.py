@@ -26,7 +26,7 @@ class Employee(db.Model):
     departmentid = db.Column(db.Integer,db.ForeignKey('department.id'))
     department = db.relationship('Department',backref=db.backref('employees',lazy='dynamic'))
 
-    def __init__(self,name,gender,job,salary,birthdate,idcard,address):
+    def __init__(self,name=None,gender=None,job=None,salary=0.0,birthdate=None,idcard=None,address=None):
         self.name = name
         self.gender = gender
         self.job = job
