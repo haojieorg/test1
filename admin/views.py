@@ -4,6 +4,10 @@ from flask import render_template,redirect,url_for,request
 from flask.views import MethodView
 from admin.forms import EmployeeForm
 from admin.models import db
+from admin.models import Department
+from admin.models import Employee
+
+
 class EmployeeView(MethodView):
 
     def get(self,page=None):
@@ -16,28 +20,26 @@ class EmployeeView(MethodView):
 
 class AddEmployeeView(MethodView):
 
-    def get(self):
-        from admin.models import Department
-        form = EmployeeForm()
+    def get(self,id=None):
+        emp = Employee() if not id else Employee.query.get(id)
+        form = EmployeeForm(request.form,obj=emp)
         form.departmentid.choices=[(d.id,d.name) for d in Department.query.all()]
         return render_template('addemp.html',form=form)
 
-    def post(self):
-        from admin.models import Employee
+    def post(self,id=None):
+
         form = EmployeeForm(request.form)
-        # emp = Employee(
-        #     form.name.data,
-        #     form.gender.data,
-        #     form.job.data,
-        #     form.salary.data,
-        #     form.birthdate.data,
-        #     form.idcard.data,
-        #     form.address.data,
-        # )
-        # emp.departmentid=int(form.departmentid.data)
-        emp=Employee()
+        emp = Employee() if not id else Employee.query.get(id)
         form.populate_obj(emp)
-        db.session.add(emp)
+        if not id:
+            db.session.add(emp)
+        db.session.commit()
+        return redirect(url_for('admin.emplist'))
+
+class EmployeeDeleteView(MethodView):
+    def get(self,id=None):
+        emp = Employee.query.get(id)
+        db.session.delete(emp)
         db.session.commit()
         return redirect(url_for('admin.emplist'))
 
