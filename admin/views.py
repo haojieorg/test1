@@ -25,16 +25,18 @@ class AddEmployeeView(MethodView):
     def post(self):
         from admin.models import Employee
         form = EmployeeForm(request.form)
-        emp = Employee(
-            form.name.data,
-            form.gender.data,
-            form.job.data,
-            form.salary.data,
-            form.birthdate.data,
-            form.idcard.data,
-            form.address.data,
-        )
-        emp.departmentid=int(form.departmentid.data)
+        # emp = Employee(
+        #     form.name.data,
+        #     form.gender.data,
+        #     form.job.data,
+        #     form.salary.data,
+        #     form.birthdate.data,
+        #     form.idcard.data,
+        #     form.address.data,
+        # )
+        # emp.departmentid=int(form.departmentid.data)
+        emp=Employee()
+        form.populate_obj(emp)
         db.session.add(emp)
         db.session.commit()
         return redirect(url_for('admin.emplist'))
