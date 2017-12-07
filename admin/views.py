@@ -3,15 +3,12 @@
 from flask import render_template,redirect,url_for,request
 from flask.views import MethodView
 from admin.forms import EmployeeForm
-from admin.models import db
-from admin.models import Department
-from admin.models import Employee
+from admin.models import db,Department,Employee
 
 
 class EmployeeView(MethodView):
 
     def get(self,page=None):
-        from admin.models import Employee
         emp = Employee.query.paginate(page,per_page=20)
         return render_template('emplist.html',emp=emp)
 
