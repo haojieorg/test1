@@ -3,6 +3,7 @@
 #导入Flask库
 from flask import Flask,render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from admin import admin_blueprint
 
 #创建app 实例
@@ -16,6 +17,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
 
 db = SQLAlchemy(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'admin.login'
+login_manager.login_message = '请登录'
 
 
 @app.route('/')
